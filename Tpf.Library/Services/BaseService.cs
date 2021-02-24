@@ -2,20 +2,21 @@
 
 namespace Tpf.Library.Services
 {
-    public class BaseService : IDisposable
+    public abstract class BaseService : IDisposable
     {
         /// <summary>
         /// 建構子
         /// </summary>
-        public BaseService()
+        protected BaseService()
         {
         }
 
         /// <summary>
         /// 資源釋放
         /// </summary>
-        public void Dispose()
+        public virtual void Dispose()
         {
+            return;
         }
     }
 }

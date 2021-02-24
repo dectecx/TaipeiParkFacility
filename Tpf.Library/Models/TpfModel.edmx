@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TaipeiParkFacilityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DimDict">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DimFacility">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Park">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DictId" Type="int" Nullable="false" />
+          <Property Name="ManagementUnit" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ParkFacility">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParkId" Type="int" Nullable="false" />
+          <Property Name="FacilityId" Type="int" Nullable="false" />
+          <Property Name="Cnt" Type="int" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Park_DimDict">
+          <End Role="DimDict" Type="Self.DimDict" Multiplicity="1" />
+          <End Role="Park" Type="Self.Park" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DimDict">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Park">
+              <PropertyRef Name="DictId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkFacility_DimFacility">
+          <End Role="DimFacility" Type="Self.DimFacility" Multiplicity="1" />
+          <End Role="ParkFacility" Type="Self.ParkFacility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DimFacility">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParkFacility">
+              <PropertyRef Name="FacilityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkFacility_Park">
+          <End Role="Park" Type="Self.Park" Multiplicity="1" />
+          <End Role="ParkFacility" Type="Self.ParkFacility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Park">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParkFacility">
+              <PropertyRef Name="ParkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TaipeiParkFacilityModelStoreContainer">
+          <EntitySet Name="DimDict" EntityType="Self.DimDict" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DimFacility" EntityType="Self.DimFacility" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Park" EntityType="Self.Park" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParkFacility" EntityType="Self.ParkFacility" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Park_DimDict" Association="Self.FK_Park_DimDict">
+            <End Role="DimDict" EntitySet="DimDict" />
+            <End Role="Park" EntitySet="Park" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkFacility_DimFacility" Association="Self.FK_ParkFacility_DimFacility">
+            <End Role="DimFacility" EntitySet="DimFacility" />
+            <End Role="ParkFacility" EntitySet="ParkFacility" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkFacility_Park" Association="Self.FK_ParkFacility_Park">
+            <End Role="Park" EntitySet="Park" />
+            <End Role="ParkFacility" EntitySet="ParkFacility" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TaipeiParkFacilityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DimDict">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Park" Relationship="Self.FK_Park_DimDict" FromRole="DimDict" ToRole="Park" />
+        </EntityType>
+        <EntityType Name="DimFacility">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ParkFacility" Relationship="Self.FK_ParkFacility_DimFacility" FromRole="DimFacility" ToRole="ParkFacility" />
+        </EntityType>
+        <EntityType Name="Park">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DictId" Type="Int32" Nullable="false" />
+          <Property Name="ManagementUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DimDict" Relationship="Self.FK_Park_DimDict" FromRole="Park" ToRole="DimDict" />
+          <NavigationProperty Name="ParkFacility" Relationship="Self.FK_ParkFacility_Park" FromRole="Park" ToRole="ParkFacility" />
+        </EntityType>
+        <EntityType Name="ParkFacility">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParkId" Type="Int32" Nullable="false" />
+          <Property Name="FacilityId" Type="Int32" Nullable="false" />
+          <Property Name="Cnt" Type="Int32" Nullable="false" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DimFacility" Relationship="Self.FK_ParkFacility_DimFacility" FromRole="ParkFacility" ToRole="DimFacility" />
+          <NavigationProperty Name="Park" Relationship="Self.FK_ParkFacility_Park" FromRole="ParkFacility" ToRole="Park" />
+        </EntityType>
+        <Association Name="FK_Park_DimDict">
+          <End Role="DimDict" Type="Self.DimDict" Multiplicity="1" />
+          <End Role="Park" Type="Self.Park" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DimDict">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Park">
+              <PropertyRef Name="DictId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkFacility_DimFacility">
+          <End Role="DimFacility" Type="Self.DimFacility" Multiplicity="1" />
+          <End Role="ParkFacility" Type="Self.ParkFacility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DimFacility">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParkFacility">
+              <PropertyRef Name="FacilityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkFacility_Park">
+          <End Role="Park" Type="Self.Park" Multiplicity="1" />
+          <End Role="ParkFacility" Type="Self.ParkFacility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Park">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParkFacility">
+              <PropertyRef Name="ParkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TaipeiParkFacilityEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DimDict" EntityType="Self.DimDict" />
+          <EntitySet Name="DimFacility" EntityType="Self.DimFacility" />
+          <EntitySet Name="Park" EntityType="Self.Park" />
+          <EntitySet Name="ParkFacility" EntityType="Self.ParkFacility" />
+          <AssociationSet Name="FK_Park_DimDict" Association="Self.FK_Park_DimDict">
+            <End Role="DimDict" EntitySet="DimDict" />
+            <End Role="Park" EntitySet="Park" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkFacility_DimFacility" Association="Self.FK_ParkFacility_DimFacility">
+            <End Role="DimFacility" EntitySet="DimFacility" />
+            <End Role="ParkFacility" EntitySet="ParkFacility" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkFacility_Park" Association="Self.FK_ParkFacility_Park">
+            <End Role="Park" EntitySet="Park" />
+            <End Role="ParkFacility" EntitySet="ParkFacility" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TaipeiParkFacilityModelStoreContainer" CdmEntityContainer="TaipeiParkFacilityEntities">
+          <EntitySetMapping Name="DimDict">
+            <EntityTypeMapping TypeName="TaipeiParkFacilityModel.DimDict">
+              <MappingFragment StoreEntitySet="DimDict">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DimFacility">
+            <EntityTypeMapping TypeName="TaipeiParkFacilityModel.DimFacility">
+              <MappingFragment StoreEntitySet="DimFacility">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Park">
+            <EntityTypeMapping TypeName="TaipeiParkFacilityModel.Park">
+              <MappingFragment StoreEntitySet="Park">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DictId" ColumnName="DictId" />
+                <ScalarProperty Name="ManagementUnit" ColumnName="ManagementUnit" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParkFacility">
+            <EntityTypeMapping TypeName="TaipeiParkFacilityModel.ParkFacility">
+              <MappingFragment StoreEntitySet="ParkFacility">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ParkId" ColumnName="ParkId" />
+                <ScalarProperty Name="FacilityId" ColumnName="FacilityId" />
+                <ScalarProperty Name="Cnt" ColumnName="Cnt" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
