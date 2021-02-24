@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace TaipeiParkFacility
+namespace Tpf.Web
 {
     public class FilterConfig
     {

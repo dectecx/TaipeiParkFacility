@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 組件的一般資訊會透過將設定 
 // 控制。變更這些屬性值可修改與組件關聯的
 // 資訊。
-[assembly: AssemblyTitle("TaipeiParkFacility")]
+[assembly: AssemblyTitle("Tpf.Web")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TaipeiParkFacility")]
+[assembly: AssemblyProduct("Tpf.Web")]
 [assembly: AssemblyCopyright("Copyright (C)  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 下列 GUID 為專案公開 (Expose) 至 COM 時所要使用的 typelib ID
-[assembly: Guid("f4eccdb3-4958-4e7e-9f3f-0b7875dc8d22")]
+[assembly: Guid("70973e2a-3fb2-4121-b64e-fc106d74fb66")]
 
 // 組件的版本資訊是由下列四項值構成:
 //

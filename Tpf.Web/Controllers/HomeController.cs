@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace TaipeiParkFacility.Controllers
+namespace Tpf.Web.Controllers
 {
     public class HomeController : Controller
     {
