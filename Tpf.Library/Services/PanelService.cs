@@ -21,18 +21,16 @@ namespace Tpf.Library.Services
             //{
             //    scope.Complete();
             //}
-            var dimDict = db.DimDict.Where(e => !e.IsDelete).ToList();
             var dimFacility = db.DimFacility.Where(e => !e.IsDelete).ToList();
 
             foreach(var item in vmodels)
             {
                 try
                 {
-                    var dictId = dimDict.Where(e => e.Name == item.Dict?.Trim() + "區").Select(e => e.Id).FirstOrDefault();
                     var model = new Models.Park
                     {
                         Name = item.ParkName,
-                        DictId = dictId,
+                        DictName = item.Dict,
                         ManagementUnit = item.ManagementUnit,
                         IsDelete = false,
                         CreateTime = DateTime.Now,

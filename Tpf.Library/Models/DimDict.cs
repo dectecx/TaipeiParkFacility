@@ -14,12 +14,6 @@ namespace Tpf.Library.Models
     
     public partial class DimDict
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DimDict()
-        {
-            this.Park = new HashSet<Park>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsDelete { get; set; }
@@ -27,8 +21,5 @@ namespace Tpf.Library.Models
         public string CreateBy { get; set; }
         public System.DateTime UpdateTime { get; set; }
         public string UpdateBy { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Park> Park { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[DimDict] (
-    [Id]         INT           IDENTITY (1, 1) NOT NULL,
+    [Id]         INT           NOT NULL,
     [Name]       NVARCHAR (50) NULL,
     [IsDelete]   BIT           CONSTRAINT [DF_DimDict_IsDelete] DEFAULT ((0)) NOT NULL,
     [CreateTime] DATETIME      CONSTRAINT [DF_DimDict_CreateTime] DEFAULT (getdate()) NOT NULL,

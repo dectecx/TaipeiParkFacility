@@ -63,10 +63,10 @@
     <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\DimDict.sql" />
     <Build Include="dbo\Tables\DimFacility.sql" />
-    <Build Include="dbo\Tables\Park.sql" />
     <Build Include="dbo\Tables\ParkFacility.sql" />
+    <Build Include="dbo\Tables\DimDict.sql" />
+    <Build Include="dbo\Tables\Park.sql" />
     <Build Include="Security\TaipeiParkFacility.sql" />
     <Build Include="Security\TaipeiParkFacility_1.sql" />
     <Build Include="Security\RoleMemberships.sql" />

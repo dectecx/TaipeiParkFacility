@@ -22,7 +22,7 @@ namespace Tpf.Library.Models
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public int DictId { get; set; }
+        public string DictName { get; set; }
         public string ManagementUnit { get; set; }
         public bool IsDelete { get; set; }
         public System.DateTime CreateTime { get; set; }
@@ -30,7 +30,6 @@ namespace Tpf.Library.Models
         public System.DateTime UpdateTime { get; set; }
         public string UpdateBy { get; set; }
     
-        public virtual DimDict DimDict { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ParkFacility> ParkFacility { get; set; }
     }

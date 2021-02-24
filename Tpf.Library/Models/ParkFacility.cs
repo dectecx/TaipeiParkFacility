@@ -15,8 +15,6 @@ namespace Tpf.Library.Models
     public partial class ParkFacility
     {
         public int Id { get; set; }
-        public int ParkId { get; set; }
-        public int FacilityId { get; set; }
         public int Cnt { get; set; }
         public bool IsDelete { get; set; }
         public System.DateTime CreateTime { get; set; }
