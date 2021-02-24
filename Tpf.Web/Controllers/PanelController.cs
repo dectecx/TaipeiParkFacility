@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Tpf.Library.Services;
+using Tpf.Library.ViewModels;
 
 namespace Tpf.Web.Controllers
 {
@@ -37,15 +38,14 @@ namespace Tpf.Web.Controllers
 
         public async Task<JsonResult> Patch()
         {
-            var result = "";
+            var result = new List<OpdGovRawVModel>();
             using (var service = new OpdGovService())
             {
-                result = await service.GetDataStr();
-                List<Task> tasks = new List<Task>
-                {
-                    service.GetDataStr()
-                };
-                await Task.WhenAll(tasks);
+                result = await service.GetData();
+            }
+            using(var service = new PanelService())
+            {
+                service.Patch(result);
             }
             return Json(result);
         }
