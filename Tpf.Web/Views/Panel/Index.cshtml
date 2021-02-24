@@ -1,0 +1,24 @@
+﻿<h2>資料操控平台</h2>
+<div>
+    <button onclick="cmd('patch')">刷新資料</button>
+    <button onclick="cmd('get')">取得資料</button>
+    <button onclick="cmd('post')">新增資料</button>
+    <button onclick="cmd('put')">更新資料</button>
+    <button onclick="cmd('delete')">刪除資料</button>
+</div>
+<script>
+    function cmd(method) {
+        $.ajax({
+            type: 'post',
+            url: '/Panel/' + method,
+            data: null,
+            dataType: 'json',
+            success: function (data) {
+                alert(data);
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+    }
+</script>
