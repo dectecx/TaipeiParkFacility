@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\CodeEnum.cs" />
     <Compile Include="Models\DimDict.cs">
       <DependentUpon>TpfModel.tt</DependentUpon>
     </Compile>
@@ -89,6 +90,7 @@
     <Compile Include="Services\PanelService.cs" />
     <Compile Include="ViewModels\OpdGovVModel.cs" />
     <Compile Include="ViewModels\PanelVModel.cs" />
+    <Compile Include="ViewModels\ResultVModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helps\" />

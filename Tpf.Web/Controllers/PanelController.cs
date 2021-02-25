@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Tpf.Library.Enums;
 using Tpf.Library.Services;
 using Tpf.Library.ViewModels;
 
@@ -20,27 +21,63 @@ namespace Tpf.Web.Controllers
         {
             try
             {
-                var result = new List<ParkVModel>();
                 using (var service = new PanelService())
                 {
-                    result = service.Get();
+                    var model = service.Get();
+                    var result = new ResultVModel<List<ParkVModel>>
+                    {
+                        Code = CodeEnum.Success,
+                        Message = "取得成功",
+                        Data = model
+                    };
+                    return Json(result);
                 }
-                return Json(result);
             }
             catch (Exception ex)
             {
-                return Json("Error" + ex.Message);
+                var error = new ResultVModel { Code = CodeEnum.Fail, Message = "Error" + ex.Message };
+                return Json(error);
             }
         }
 
         public JsonResult Post()
         {
-            return Json("Post");
+            try
+            {
+                var model = "Post";
+                var result = new ResultVModel<string>
+                {
+                    Code = CodeEnum.Success,
+                    Message = "新增成功",
+                    Data = model
+                };
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                var error = new ResultVModel { Code = CodeEnum.Fail, Message = "Error" + ex.Message };
+                return Json(error);
+            }
         }
 
         public JsonResult Put()
         {
-            return Json("Put");
+            try
+            {
+                var model = "Put";
+                var result = new ResultVModel<string>
+                {
+                    Code = CodeEnum.Success,
+                    Message = "更新成功",
+                    Data = model
+                };
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                var error = new ResultVModel { Code = CodeEnum.Fail, Message = "Error" + ex.Message };
+                return Json(error);
+            }
         }
 
         public JsonResult Delete()
@@ -50,12 +87,21 @@ namespace Tpf.Web.Controllers
                 using (var service = new PanelService())
                 {
                     service.Delete();
+
+                    var model = "Delete";
+                    var result = new ResultVModel<string>
+                    {
+                        Code = CodeEnum.Success,
+                        Message = "刪除成功",
+                        Data = model
+                    };
+                    return Json(result);
                 }
-                return Json("Delete");
             }
             catch (Exception ex)
             {
-                return Json("Error" + ex.Message);
+                var error = new ResultVModel { Code = CodeEnum.Fail, Message = "Error" + ex.Message };
+                return Json(error);
             }
         }
 
@@ -63,20 +109,28 @@ namespace Tpf.Web.Controllers
         {
             try
             {
-                var result = new List<OpdGovRawVModel>();
+                var model = new List<OpdGovRawVModel>();
                 using (var service = new OpdGovService())
                 {
-                    result = await service.GetData();
+                    model = await service.GetData();
                 }
                 using (var service = new PanelService())
                 {
-                    service.Patch(result);
+                    service.Patch(model);
                 }
+
+                var result = new ResultVModel<string>
+                {
+                    Code = CodeEnum.Success,
+                    Message = "介接成功",
+                    Data = "Patch"
+                };
                 return Json(result);
             }
             catch (Exception ex)
             {
-                return Json("Error" + ex.Message);
+                var error = new ResultVModel { Code = CodeEnum.Fail, Message = "Error" + ex.Message };
+                return Json(error);
             }
         }
     }
