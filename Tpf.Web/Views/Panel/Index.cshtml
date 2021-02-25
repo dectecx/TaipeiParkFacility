@@ -1,24 +1,96 @@
-﻿<h2>資料操控平台</h2>
+﻿@section Head
+{
+    <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+}
+
+<h2>資料操作</h2>
 <div>
-    <button onclick="cmd('patch')">刷新資料</button>
-    <button onclick="cmd('get')">取得資料</button>
-    <button onclick="cmd('post')">新增資料</button>
-    <button onclick="cmd('put')">更新資料</button>
-    <button onclick="cmd('delete')">刪除資料</button>
+    <button onclick="cmd('patch')">重新介接資料</button>
+    <button onclick="cmd('get')">取得資料庫資料</button>
+    @*<button onclick="cmd('post')">新增資料</button>
+        <button onclick="cmd('put')">更新資料</button>*@
+    <button onclick="cmd('delete')">刪除資料庫資料</button>
 </div>
-<script>
-    function cmd(method) {
-        $.ajax({
-            type: 'post',
-            url: '/Panel/' + method,
-            data: null,
-            dataType: 'json',
-            success: function (data) {
-                alert(data);
-            },
-            error: function (error) {
-                alert(error);
-            }
+<div>
+    <table id="tableStatistics">
+        <thead>
+            <tr align="center">
+                <th>
+                    <span>公園名稱</span>&ensp;
+                </th>
+                <th>
+                    <span>行政區</span>&ensp;
+                </th>
+                <th>
+                    <span>管理單位</span>&ensp;
+                </th>
+                <th>
+                    <span>設施列表</span>&ensp;
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr align="center"></tr>
+        </tbody>
+    </table>
+</div>
+@section Scripts
+{
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tableStatistics').DataTable({
+                order: [[1, 'asc'], [0, 'desc']],
+                columnDefs: [
+                    {
+                        "className": "dt-center",
+                        "targets": "_all"
+                    }
+                ],
+                ajax: {
+                    "type": "post",
+                    "url": '/Panel/Get',
+                    "dataSrc": "",
+                },
+                columns: [
+                    { data: 'ParkName' },
+                    { data: 'Dict' },
+                    { data: 'ManagementUnit' },
+                    {
+                        data: 'facilityList',
+                        render: function (data, type, row) {
+                            var str = '';
+                            data.forEach((v, i) => {
+                                str += `${v.Name}x${v.Cnt}、`;
+                            });
+                            if (str.length > 0)
+                                str = str.substring(0, str.length - 1);
+                            return str;
+                        }
+                    }
+                ]
+            });
         });
-    }
-</script>
+
+        function cmd(method) {
+            $.ajax({
+                type: 'post',
+                url: '/Panel/' + method,
+                data: null,
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    showData();
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert(error);
+                }
+            });
+        }
+
+        function showData() {
+            $('#tableStatistics').DataTable().ajax.reload();
+        }
+    </script>
+}
