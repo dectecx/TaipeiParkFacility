@@ -2,7 +2,12 @@
 {
     <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
 }
-
+<style>
+    .blockOverlay {
+        background-color: #fff !important;
+        cursor: default !important; /*預設游標*/
+    }
+</style>
 <h2>資料操作</h2>
 <div>
     <button onclick="cmd('patch')">重新介接資料</button>
@@ -33,10 +38,15 @@
             <tr align="center"></tr>
         </tbody>
     </table>
+    @*<div id="loadingImg" style="display: none;">
+        <img src="@Url.Content("~/")Images/loading.gif" />
+        資料處理中，請稍後...
+    </div>*@
 </div>
 @section Scripts
 {
-    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://malsup.github.io/jquery.blockUI.js"></script>
     <script>
         $(document).ready(function () {
             $('#tableStatistics').DataTable({
@@ -72,12 +82,27 @@
             });
         });
 
+        /**
+         * 調用後端方法
+         * @@param method {string} 方法名稱
+         */
         function cmd(method) {
             $.ajax({
                 type: 'post',
                 url: '/Panel/' + method,
                 data: null,
                 dataType: 'json',
+                beforeSend: function () {
+                    //$('#loadingImg').show();
+                    $.blockUI({
+                        timeout: 30000, 
+                        message: '資料處理中，請稍後...<br><img src="@Url.Content("~/")Images/loading.gif" />'
+                    });
+                },
+                complete: function () {
+                    //$('#loadingImg').hide();
+                    $.unblockUI(); 
+                },
                 success: function (data) {
                     console.log(data);
                     if (data.Code == 0) {
@@ -85,7 +110,7 @@
                         return;
                     }
                     else {
-                        showData();
+                        reloadTable();
                     }
                 },
                 error: function (error) {
@@ -95,7 +120,8 @@
             });
         }
 
-        function showData() {
+        /**重新載入dataTable */
+        function reloadTable() {
             $('#tableStatistics').DataTable().ajax.reload();
         }
     </script>
