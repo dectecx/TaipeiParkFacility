@@ -30,6 +30,15 @@ namespace Tpf.Library.Services
             return model;
         }
 
+        public void Delete()
+        {
+            foreach (var item in db.ParkFacility)
+                db.ParkFacility.Remove(item);
+            foreach (var item in db.Park)
+                db.Park.Remove(item);
+            db.SaveChanges();
+        }
+
         public void Patch(List<OpdGovRawVModel> vmodels)
         {
             if (vmodels == null)

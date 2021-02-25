@@ -18,12 +18,19 @@ namespace Tpf.Web.Controllers
 
         public JsonResult Get()
         {
-            var result = new List<ParkVModel>();
-            using (var service = new PanelService())
+            try
             {
-                result = service.Get();
+                var result = new List<ParkVModel>();
+                using (var service = new PanelService())
+                {
+                    result = service.Get();
+                }
+                return Json(result);
             }
-            return Json(result);
+            catch (Exception ex)
+            {
+                return Json("Error" + ex.Message);
+            }
         }
 
         public JsonResult Post()
@@ -38,21 +45,39 @@ namespace Tpf.Web.Controllers
 
         public JsonResult Delete()
         {
-            return Json("Delete");
+            try
+            {
+                using (var service = new PanelService())
+                {
+                    service.Delete();
+                }
+                return Json("Delete");
+            }
+            catch (Exception ex)
+            {
+                return Json("Error" + ex.Message);
+            }
         }
 
         public async Task<JsonResult> Patch()
         {
-            var result = new List<OpdGovRawVModel>();
-            using (var service = new OpdGovService())
+            try
             {
-                result = await service.GetData();
+                var result = new List<OpdGovRawVModel>();
+                using (var service = new OpdGovService())
+                {
+                    result = await service.GetData();
+                }
+                using (var service = new PanelService())
+                {
+                    service.Patch(result);
+                }
+                return Json(result);
             }
-            using(var service = new PanelService())
+            catch (Exception ex)
             {
-                service.Patch(result);
+                return Json("Error" + ex.Message);
             }
-            return Json(result);
         }
     }
 }
