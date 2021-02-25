@@ -88,6 +88,7 @@
     <Compile Include="Services\OpdGovService.cs" />
     <Compile Include="Services\PanelService.cs" />
     <Compile Include="ViewModels\OpdGovVModel.cs" />
+    <Compile Include="ViewModels\PanelVModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helps\" />

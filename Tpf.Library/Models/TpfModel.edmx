@@ -158,6 +158,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParkId" Type="Int32" Nullable="false" />
+          <Property Name="FacilityId" Type="Int32" Nullable="false" />
           <Property Name="Cnt" Type="Int32" Nullable="false" />
           <Property Name="IsDelete" Type="Boolean" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -170,12 +172,28 @@
         <Association Name="FK_ParkFacility_DimFacility">
           <End Type="TaipeiParkFacilityModel.DimFacility" Role="DimFacility" Multiplicity="1" />
           <End Type="TaipeiParkFacilityModel.ParkFacility" Role="ParkFacility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DimFacility">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParkFacility">
+              <PropertyRef Name="FacilityId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="FK_ParkFacility_Park">
           <End Type="TaipeiParkFacilityModel.Park" Role="Park" Multiplicity="1" />
           <End Type="TaipeiParkFacilityModel.ParkFacility" Role="ParkFacility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Park">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParkFacility">
+              <PropertyRef Name="ParkId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -231,26 +249,12 @@
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="Cnt" ColumnName="Cnt" />
+                <ScalarProperty Name="FacilityId" ColumnName="FacilityId" />
+                <ScalarProperty Name="ParkId" ColumnName="ParkId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="FK_ParkFacility_DimFacility" TypeName="TaipeiParkFacilityModel.FK_ParkFacility_DimFacility" StoreEntitySet="ParkFacility">
-            <EndProperty Name="ParkFacility">
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </EndProperty>
-            <EndProperty Name="DimFacility">
-              <ScalarProperty Name="Id" ColumnName="FacilityId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_ParkFacility_Park" TypeName="TaipeiParkFacilityModel.FK_ParkFacility_Park" StoreEntitySet="ParkFacility">
-            <EndProperty Name="ParkFacility">
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </EndProperty>
-            <EndProperty Name="Park">
-              <ScalarProperty Name="Id" ColumnName="ParkId" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -266,7 +270,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
       </DesignerInfoPropertySet>

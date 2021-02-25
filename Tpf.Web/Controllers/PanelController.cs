@@ -18,7 +18,12 @@ namespace Tpf.Web.Controllers
 
         public JsonResult Get()
         {
-            return Json("Get");
+            var result = new List<ParkVModel>();
+            using (var service = new PanelService())
+            {
+                result = service.Get();
+            }
+            return Json(result);
         }
 
         public JsonResult Post()
